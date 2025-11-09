@@ -8,10 +8,10 @@ This script is an example to:
 
 Set environment variable OPENAI_API_KEY before running.
 """
-from pymilvus import connections, FieldSchema, CollectionSchema, DataType, Collection
+from pymilvus import connections, FieldSchema, CollectionSchema, DataType, Collection, utility
 import openai, os
 
-OPENAI_KEY = os.getenv('OPENAI_API_KEY', '')
+OPENAI_KEY = os.getenv('OPENAI_API_KEY')
 if not OPENAI_KEY:
     print('Please set OPENAI_API_KEY in environment to generate real embeddings. Using mock vectors.')
 
@@ -24,7 +24,7 @@ fields = [
     FieldSchema(name="embedding", dtype=DataType.FLOAT_VECTOR, dim=1536)
 ]
 schema = CollectionSchema(fields, description="FAQ for orders")
-if Collection.exists("faq_orders"):
+if utility.has_collection("faq_orders"):
     coll = Collection("faq_orders")
 else:
     coll = Collection("faq_orders", schema=schema)
@@ -42,7 +42,11 @@ vectors = []
 if OPENAI_KEY:
     openai.api_key = OPENAI_KEY
     for q in samples:
-        resp = openai.Embedding.create(model="text-embedding-3-large", input=q[0])
+        resp = openai.embeddings.create(
+            model="text-embedding-3-large",
+            input=q[0]
+        )
+        embedding = resp.data[0].embedding
         vectors.append(resp['data'][0]['embedding'])
 else:
     import random
