@@ -4,3 +4,4 @@ openai>=1.0.0
 tiktoken>=0.7.0
 python-dotenv>=1.0.0
 numpy>=1.26.4
+requests>=2.18.1
