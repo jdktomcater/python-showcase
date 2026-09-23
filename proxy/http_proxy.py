@@ -4,7 +4,7 @@ import requests
 UPSTREAM = "https://txfat-vault.fbnma.com"
 BLOCK = False  # True=模拟分区, False=正常转发
 
-class H(BaseHTTPRequestHandler):
+class HTTPProxy(BaseHTTPRequestHandler):
     def _handle(self):
         global BLOCK
         if self.path == "/__partition/on":
@@ -53,4 +53,4 @@ class H(BaseHTTPRequestHandler):
     def do_PUT(self): self._handle()
     def do_DELETE(self): self._handle()
 
-HTTPServer(("127.0.0.1", 18200), H).serve_forever()
+HTTPServer(("127.0.0.1", 18200), HTTPProxy).serve_forever()
