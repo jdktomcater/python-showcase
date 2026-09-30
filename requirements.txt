@@ -1,5 +1,5 @@
 langchain>=0.3.0
-langchain-core>=0.3.0
+langchain-core>=1.2.11
 openai>=1.0.0
 tiktoken>=0.7.0
 python-dotenv>=1.0.0
