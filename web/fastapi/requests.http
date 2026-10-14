@@ -1,0 +1,33 @@
+@baseUrl = http://127.0.0.1:8000
+
+### 创建任务；运行 examples.tasks:app
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{"title":"学习 FastAPI"}
+
+> {% client.global.set("taskId", response.body.id); %}
+
+### 列表和筛选
+GET {{baseUrl}}/tasks?completed=false&offset=0&limit=10
+
+### 获取刚创建的任务
+GET {{baseUrl}}/tasks/{{taskId}}
+
+### 完整替换
+PUT {{baseUrl}}/tasks/{{taskId}}
+Content-Type: application/json
+
+{"title":"完成入门","completed":true}
+
+### 校验失败：预期 422
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{"title":"   "}
+
+### 删除：预期 204
+DELETE {{baseUrl}}/tasks/{{taskId}}
+
+### 删除后查询：预期 404
+GET {{baseUrl}}/tasks/{{taskId}}
