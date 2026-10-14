@@ -19,7 +19,7 @@ def take_up_time(func):
 async def request_async():
     # 异步请求函数
     async with aiohttp.ClientSession() as session:
-        async with session.get('https://www.baidu.com') as resp:
+        async with session.get('https://www.baidu.com'):
             pass
 
 

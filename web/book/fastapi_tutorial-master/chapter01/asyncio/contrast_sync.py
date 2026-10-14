@@ -12,8 +12,7 @@ def take_up_time(func):
     return wrapper
 
 def request_sync(url):
-    response = requests.get(url)
-    return response
+    return requests.get(url)
 
 @take_up_time
 def run():
