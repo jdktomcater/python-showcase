@@ -27,10 +27,6 @@ def myinex():
 app.get("/myindex", tags=["路由注册方式"], summary="路由注册方式说明")(myinex)
 
 
-@app.route('/loginjig', methods=['GET', 'POST'], name='loginjig')
-def loginjig(req: Request):
-    return PlainTextResponse('大爷')
-
 @app.get("/hello")
 def hello_world(req: Request):
     return PlainTextResponse('Hello world!')
